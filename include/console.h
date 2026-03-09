@@ -1,5 +1,8 @@
 #pragma once
 
+#define WIN32_LAZY_AND_MEAN
+
+#include <Windows.h>
 #include <string_view>
 #include <format>
 #include <print>
@@ -62,6 +65,26 @@ namespace console {
             std::println("{}[{}]{} {} {}({}:{}){} ", color, label, color::reset, msg, color::dim, loc.file_name(), loc.line(), color::reset);
         }
     } // namespace detail
+
+    inline void open() noexcept {
+        AllocConsole();
+
+        FILE* fp;
+        freopen_s(&fp, "CONOUT$", "w", stdout);
+        freopen_s(&fp, "CONOUT$", "w", stderr);
+        freopen_s(&fp, "CONIN$", "r", stdin);
+
+        const HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
+        DWORD mode = 0;
+        GetConsoleMode(out, &mode);
+        SetConsoleMode(out, mode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
+
+        SetConsoleOutputCP(CP_UTF8);
+    }
+
+    inline void close() noexcept {
+        FreeConsole();
+    }
 
     inline void set_level(detail::level lvl) noexcept {
         detail::g_min_level = lvl;
