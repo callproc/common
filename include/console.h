@@ -3,10 +3,12 @@
 #define WIN32_LAZY_AND_MEAN
 
 #include <Windows.h>
+
 #include <string_view>
 #include <format>
 #include <print>
 #include <source_location>
+#include <filesystem>
 #include <utility>
 
 namespace console {
@@ -61,8 +63,9 @@ namespace console {
 
             const auto color = level_color(lvl);
             const auto label = level_label(lvl);
+            const auto path = std::filesystem::path(loc.file_name());
 
-            std::println("{}[{}]{} {} {}({}:{}){} ", color, label, color::reset, msg, color::dim, loc.file_name(), loc.line(), color::reset);
+            std::println("{}[{}]{} {} {}({}:{}){} ", color, label, color::reset, msg, color::dim, path.filename(), loc.line(), color::reset);
         }
     } // namespace detail
 
