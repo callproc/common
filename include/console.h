@@ -66,8 +66,9 @@ namespace console {
         }
     } // namespace detail
 
-    inline void open() noexcept {
+    inline void open(const std::string_view title = "console") noexcept {
         AllocConsole();
+        SetConsoleTitleA(title.data());
 
         FILE* fp;
         freopen_s(&fp, "CONOUT$", "w", stdout);
