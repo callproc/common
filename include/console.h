@@ -65,7 +65,7 @@ namespace console {
             const auto label = level_label(lvl);
             const auto path = std::filesystem::path(loc.file_name());
 
-            std::println("{}[{}]{} {} {}({}:{}){} ", color, label, color::reset, msg, color::dim, path.filename(), loc.line(), color::reset);
+            std::println("{}[{}]{} {} {}({}:{}){} ", color, label, color::reset, msg, color::dim, path.filename().string(), loc.line(), color::reset);
         }
     } // namespace detail
 
