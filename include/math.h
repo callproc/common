@@ -2,6 +2,8 @@
 
 #include <cmath>
 
+#ifndef COMMON_MATH_H
+#define COMMON_MATH_H
 namespace math
 {
     class vector2
@@ -51,7 +53,7 @@ namespace math
 		[[nodiscard]] constexpr vector3 operator-(const vector3& v) const noexcept { return { x - v.x, y - v.y, z - v.z }; }
 		[[nodiscard]] constexpr vector3 operator*(const vector3& v) const noexcept { return { x * v.x, y * v.y, z * v.z }; }
 		[[nodiscard]] constexpr vector3 operator/(const vector3& v) const noexcept { return { x / v.x, y / v.y, z / v.z }; }
-		
+
 		[[nodiscard]] constexpr vector3 operator*(float s) const noexcept { return { x * s, y * s, z * s }; }
 		[[nodiscard]] constexpr vector3 operator/(float s) const noexcept { return { x / s, y / s, z / s }; }
 
@@ -63,10 +65,11 @@ namespace math
 
 		[[nodiscard]] constexpr float dot(const vector3& v) const noexcept { return x * v.x + y * v.y + z * v.z; }
 		[[nodiscard]] constexpr vector3 cross(const vector3& v) const noexcept { return { y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x }; }
-		
+
         [[nodiscard]] float length() const noexcept { return std::sqrt(dot(*this)); }
 		[[nodiscard]] vector3 normalized() const noexcept { return *this / length(); }
 
 		[[nodiscard]] constexpr bool operator==(const vector3&) const noexcept = default;
 	};
-}
+} // namespace math
+#endif

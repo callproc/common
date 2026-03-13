@@ -11,6 +11,8 @@
 #include <filesystem>
 #include <utility>
 
+#ifndef COMMON_CONSOLE_H
+#define COMMON_CONSOLE_H
 namespace console {
     namespace detail {
         namespace color {
@@ -124,3 +126,4 @@ namespace console {
         detail::emit(detail::level::fatal, std::format(fmt, std::forward<Args>(args)...), loc);
     }
 } // namespace console
+#endif
